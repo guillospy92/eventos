@@ -1,0 +1,239 @@
+
+
+{% extends "base.html" %}
+
+
+{% block title%} Home titulo{% endblock title%}
+
+
+{% block content%} 
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand navbara" href="#">EVENTUS</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+     
+      <form class="navbar-form navbar-left" role="search" method="POST">{% csrf_token %}
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Buscar Un Evento">
+        </div>
+        <button type="submit" class="btn btn-default">Buscar</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+      {% if user.is_authenticated %}
+
+
+
+         <li><img class="photoperfil img-thumbnail" src="{{user.avatar}}"/></li>
+         <li><a class="navbara " href="{% url 'events:panel' %}">Hola, {{user.username}}</a></li>
+
+         {% else %}
+         <li><a class="navbara " href="{% url 'users:login' %}">sing up</a></li>
+
+        {% endif %}
+
+
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+<div class="container-fluid ran" id="slider">
+
+
+
+  <br/><br/><br/><br/><br/>
+  <h1 class="princi text-center"> <b>EventsYa </b></h1>
+  <p class="princia text-center"> <b>bienvenidos a evensYa aqui podras encontrar enventos que se den en tu cuidad puedes inscribirte hoy mismo que esperas </b></p>
+
+  <p class="text-center"><a aling="center" class="btn btn-web btn-lg" href="{% url 'users:login' %}"><b>registrate</b></a></p>
+</br>
+
+
+  <div class="container">
+  
+
+<div class="col-md-4">
+  
+
+
+</div>
+
+<div class="col-md-4">
+  
+<div class="input-group">
+  <span class="input-group-addon glyphicon glyphicon-plus" id="basic-addon1"></span>
+  
+  <select class="form-control" aria-describedby="basic-addon1" >
+  <option value="volvo">buscar por categoria</option>
+  {%for cat in categories%}
+  <option value="{{cat.id}}">{{cat.name}}</option>
+  {%endfor%}
+  
+</select>
+</div>
+
+</div>
+<div class="col-md-4">
+  
+ 
+</div>
+
+
+
+</div>
+
+
+</div>
+
+</br></br></br>
+
+
+<section class="container" id="datos" >
+
+<div class="col-md-8">
+
+<div class="col-md-7"></div>
+
+<div class="col-md-5">
+  
+</div>
+  
+
+</div>
+
+
+  
+</section>
+
+
+
+
+
+
+
+<div class="container">
+<div class="row">
+<div class="col-md-8">
+{% for event in events%}
+
+
+<section class="principalsection row" >
+	
+
+<div class="col-md-7" id="imagen">
+<br>
+	<img class="img-resposive img-thumbnail"  src="static/{{event.imagen.url}}" ></img>
+  <br/>
+  <br/>
+  
+
+  <p><strong>fecha de inicio :</strong> </p>
+  <h4>{{event.start}} </h4>
+  <p><strong>fecha de finalizacion :</strong> </p>
+  <h4>{{event.finish}}</h4>
+
+</div>	
+
+<div class="col-md-5" id="contenido">
+	<h3 class="">{{event.name}}</h3>
+	<p>{{event.summary}}</p>
+  <br>
+
+
+  <button class="btn btn-primary btn-lg">leer mas sobre este evento</button>
+  
+  <div class="horizontal"><br> <i class=" social text-center fa fa-facebook"></i></div>
+  <div class="horizontal"><br> <i class=" social text-center fa fa-google"></i></div>
+  <div class="horizontal"><br> <i class=" social text-center fa fa-twitter"></i></div>
+  
+  
+
+
+
+  
+	
+
+
+</div>	
+</section>	
+
+
+<br/><br/>
+{% endfor %}
+</div>
+<div class="col-md-4  ">
+
+<div class="category animacioncategory">
+  
+<h2 class="text-center text">Categories de eventos </h2>
+
+{% for cate in categories %}
+
+<ul class="nav nav-pills nav-stacked">
+  
+<li ><a href="#"><h4 class="">{{cate.name}}</h4></a></li>
+
+</ul>
+
+
+{%endfor%}
+
+</div>
+  
+
+
+
+</div>
+	
+</div>
+</div>
+
+<script>
+  
+$('select').on('change', cambiar);
+function cambiar(){
+
+var id = $(this).val()
+$.ajax({
+
+data : {'id': id},
+url : '/evento-ajax/',
+type : 'get',
+success: function(data){
+
+  var object = JSON.parse(data);
+  var html = "<p>"+object.name + "</p><p>" + object.summary + "</p>";
+  $('#datos').html(html);
+
+}
+
+
+});
+
+}
+
+
+</script>
+
+
+
+
+
+
+
+{% endblock content%}
