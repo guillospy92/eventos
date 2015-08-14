@@ -6,8 +6,7 @@ dentro de esta aplicacion se utilizo a
 framewrok django,
 framework bootstrap,
 jquery,
-ajax,
-python social auth
+ajax
 
 
 
