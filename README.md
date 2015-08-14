@@ -1,13 +1,13 @@
 # eventos
 aplicacion en django 
 
-una aplicacion donde podras gestionar todos tus eventos 
-dentro de este mismo se utilizo 
-framewrok django
-framework bootstrap
-jquery
-ajax
+una aplicacion donde podras crear tus eventos y poder compartirlo en tus redes sociales tambien podras gestionar tus eventos a tu gusto con 
+dentro de esta aplicacion se utilizo a 
+framewrok django,
+framework bootstrap,
+jquery,
+ajax,
 python social auth
-sdfsdfsdf
+
 
 
